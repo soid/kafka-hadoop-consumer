@@ -34,6 +34,8 @@ public class KafkaRecordReaderIntTest extends IntTestBase {
 
     @Test
     public void readingTest() throws Exception {
+        Thread.sleep(5000);
+
         // config
         kafkaInputFormat = new KafkaInputFormat();
 
@@ -47,7 +49,8 @@ public class KafkaRecordReaderIntTest extends IntTestBase {
         List<InputSplit> splits = kafkaInputFormat.getSplits(jobContext);
 
         assert splits.size() > 0 : "No input splits generated";
-        assert splits.size() > 1 : "There should be more than one splits to test it appropriately";
+        assert splits.size() > 1 : "There should be more than one splits to test it appropriately. " +
+                "Splits: " + Integer.valueOf(splits.size());
 
         // read every split
         List<String> readEvents = readSplitEvents(splits);
