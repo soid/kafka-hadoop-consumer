@@ -1,10 +1,12 @@
 Kafka Hadoop Consumer
 =====================
 
+[![Build Status](https://travis-ci.org/soid/kafka-hadoop-consumer.svg?branch=master)](https://travis-ci.org/soid/kafka-hadoop-consumer)
+
 This is a fork of Conductor's [Kangaroo project] (https://github.com/Conductor/kangaroo).
 The main goal of the project is to provide updated Hadoop consumer for the new Kafka versions (0.8 and later), and maintain it, because the authors of the original project were not responsive to pull requests or messages for months.
 In this project Hadoop Input Format code has been decoupled from other unrelated code in Kangaroo, and integration tests introduced, among other improvements.
-The package has been changed from com.conductor to com.baynote, so the artifact can be published by the author of the fork.
+The package has been changed from com.conductor to com.baynote, so the artifact can be published in Maven Central by the author of the fork.
 
 # Versions
 
