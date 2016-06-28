@@ -74,7 +74,7 @@ public class KafkaRecordReaderIntTest extends IntTestBase {
         }
 
         // there might be a delay in log flush, so we wait for a bit
-        Thread.sleep(500);
+        Thread.sleep(5000);
 
         // check it consumes only the new records
         List<InputSplit> splits2 = kafkaInputFormat.getSplits(jobContext);
