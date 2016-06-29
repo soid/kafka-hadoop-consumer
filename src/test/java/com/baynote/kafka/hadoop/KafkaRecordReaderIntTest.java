@@ -34,7 +34,7 @@ public class KafkaRecordReaderIntTest extends IntTestBase {
 
     @Test
     public void readingTest() throws Exception {
-        Thread.sleep(5000);
+        Thread.sleep(5000); // TODO rewrite it as a timeout
 
         // config
         kafkaInputFormat = new KafkaInputFormat();
@@ -77,7 +77,7 @@ public class KafkaRecordReaderIntTest extends IntTestBase {
         }
 
         // there might be a delay in log flush, so we wait for a bit
-        Thread.sleep(5000);
+        Thread.sleep(5000); // TODO rewrite it as a timeout
 
         // check it consumes only the new records
         List<InputSplit> splits2 = kafkaInputFormat.getSplits(jobContext);

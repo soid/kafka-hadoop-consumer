@@ -29,6 +29,11 @@ artifacts {
     archives javadocJar, sourcesJar
 }
 
+signing {
+    sign configurations.archives
+}
+
+
 // dependencies below
 
 ext.kafka = "0.8.2.1"
@@ -59,4 +64,52 @@ dependencies {
 
 task wrapper(type: Wrapper) {
     gradleVersion = '2.13'
+}
+
+
+// Maven Central Upload
+// Copied from http://central.sonatype.org/pages/gradle.html
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+
+            snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+
+            pom.project {
+                name 'Kafka Hadoop Consumer'
+                packaging 'jar'
+                description 'Reading Kafka input in Hadoop map jobs'
+                url 'https://github.com/soid/kafka-hadoop-consumer'
+
+                scm {
+                    connection 'scm:git:https://github.com/soid/kafka-hadoop-consumer.git'
+                    developerConnection 'scm:git:https://github.com/soid/kafka-hadoop-consumer.git'
+                    url 'https://github.com/soid/kafka-hadoop-consumer.git'
+                }
+
+                licenses {
+                    license {
+                        name 'The Apache License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id 'soid'
+                        name 'Greg Temchenko'
+                        email 'soid@dicefield.com'
+                    }
+                }
+            }
+        }
+    }
 }
