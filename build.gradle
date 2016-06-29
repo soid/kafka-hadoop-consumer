@@ -1,5 +1,14 @@
 group 'com.baynote'
-version '0.8.0-SNAPSHOT'
+ext.ver = '0.8.0'
+
+// To release, run:
+// ./gradlew clean build uploadArchives -Drelease
+// otherwise it'll build a snapshot
+if (System.properties.getProperty("release") == null) {
+    version ver + "-SNAPSHOT"
+} else {
+    version ver
+}
 
 apply plugin: 'java'
 apply plugin: 'maven'
@@ -33,6 +42,20 @@ signing {
     sign configurations.archives
 }
 
+assemble.dependsOn.remove(signArchives)
+install.dependsOn.remove(signArchives)
+
+gradle.taskGraph.whenReady { graph ->
+    if (graph.hasTask(signArchives)) {
+        tasks.withType(Sign){
+            enabled = false
+        }
+    }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.13'
+}
 
 // dependencies below
 
@@ -60,10 +83,6 @@ dependencies {
     testCompile 'org.mockito:mockito-core:1.9.0'
     testCompile 'info.batey.kafka:kafka-unit:0.3'
     testCompile group: 'junit', name: 'junit', version: '4.8.2'
-}
-
-task wrapper(type: Wrapper) {
-    gradleVersion = '2.13'
 }
 
 
