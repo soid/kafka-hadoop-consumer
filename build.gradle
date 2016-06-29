@@ -42,16 +42,8 @@ signing {
     sign configurations.archives
 }
 
-assemble.dependsOn.remove(signArchives)
-install.dependsOn.remove(signArchives)
-
-gradle.taskGraph.whenReady { graph ->
-    if (graph.hasTask(signArchives)) {
-        tasks.withType(Sign){
-            enabled = false
-        }
-    }
-}
+// exclude signArchives cause not everyone who builds the project signs the artifacts
+signArchives.onlyIf { project.gradle.startParameter.taskNames.contains("uploadArchives") }
 
 task wrapper(type: Wrapper) {
     gradleVersion = '2.13'
