@@ -12,7 +12,7 @@ The package has been changed from com.conductor to com.baynote, so the artifact 
 
 | Kafka Hadoop Consumer Version | Kafka Version | Scala Version |
 |-------------------------------|---------------|---------------|
-| 0.8                           | 0.8.2.1       | 2.10          |
+| 0.8                           | 0.8.2.1       | 2.11          |
 
 
 # Maven Central
