@@ -1,13 +1,17 @@
 group 'com.baynote'
 ext.ver = '0.8.0'
 
+ext.kafka = "0.8.2.1"
+ext.scala = "2.11"
+ext.hadoop = "2.2.0"
+
 // To release, run:
 // ./gradlew clean build uploadArchives -Drelease
 // otherwise it'll build a snapshot
 if (System.properties.getProperty("release") == null) {
-    version ver + "-SNAPSHOT"
+    version ver + "_" + ext.scala + "-SNAPSHOT"
 } else {
-    version ver
+    version ver + "_" + ext.scala
 }
 
 apply plugin: 'java'
@@ -50,10 +54,6 @@ task wrapper(type: Wrapper) {
 }
 
 // dependencies below
-
-ext.kafka = "0.8.2.1"
-ext.scala = "2.11"
-ext.hadoop = "2.2.0"
 
 dependencies {
     // kafka
